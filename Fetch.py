@@ -2,57 +2,67 @@ import requests
 import os
 from PIL import Image as img
 
-def Image(img_width, img_height):
+photos = []
+
+def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2015-6-3', img_width=350, img_height=350):
+
     try: 
         global imgUrl
-        global expl
+        global sol
         global date
-        global title
+        global roverName
+        global numPhotos
         os.makedirs('marsImages',exist_ok=True)
         path = os.path.join(os.getcwd(),'marsImages')
 
         api_key = 'MyG8gwSTFPwax20aBofVEvR1mP2hwCgW8l60RM0C'
-        res = requests.get(f"https://api.nasa.gov/planetary/apod?api_key={api_key}").json()
-        print(res)
-        url = res['url']
-        expl = res['explanation']
-        date = res['date']
-        title = res['title']
-        imgUrl = url
-        print()
-        print(f'Downloading Image from: \n{url}')
-        print()
+        res = requests.get(f"https://api.nasa.gov/mars-photos/api/v1/rovers/{nameRover}/photos?sol={solYear}&camera={cameraName}&earth_date={earthDate}&api_key={api_key}").json()
 
-        length = len(os.listdir(path))
-        num = length + 1
-        imgRes = requests.get(url)
+        numPhotos = len(res['photos'])
+        print("Number Of Photos: ", numPhotos)
+        for i in range(numPhotos):
 
-        marsImg = open(os.path.join(path,os.path.basename(url)), 'wb')
+            url = res['photos'][i]['img_src']
+            imgUrl = url
+            sol = res['photos'][i]['sol']
+            date = res['photos'][i]['earth_date']
+            roverName = res['photos'][i]['rover']['name']
 
-        for chunk in imgRes.iter_content(100000):
-            
-            marsImg.write(chunk)
-        marsImg.close()
+            print()
+            print(f'Downloading Image from: \n{url}')
+            print()
+            imgRes = requests.get(url)
 
-        resizeImg = img.open(os.path.join(path,os.path.basename(url)))
-        resizeImg.resize((int(img_width),int(img_height)))
-        resizeImg.save(os.path.join(path,os.path.basename(url)))
+            marsImg = open(os.path.join(path,os.path.basename(url)), 'wb')
 
-        print('Image Download Succesful!')
-        print()
+            for chunk in imgRes.iter_content(100000):
+                marsImg.write(chunk)
+            marsImg.close()
+
+            imgPath = os.path.join(path,os.path.basename(url))
+            resizeImg = img.open(imgPath)
+            resizeImg.thumbnail((img_width,img_height))
+            resizeImg.save(os.path.join(path,os.path.basename(url)))
+            photos.append(os.path.join(path,os.path.basename(url)))
+            print('Image Download Succesful!')
+            print()
     except KeyError:
         print("----------------------")
-        print(res)
+        print(res['photos'])
     return 0
 
-def Name():
-    return os.path.basename(imgUrl)
+def numPhotos():
+    return numPhotos
 
-def Description():
-    return expl
+
+def Name():
+    return photos
+
+def Sol():
+    return sol
 
 def Date():
     return date
 
-def Title():
-    return title
+def roverName():
+    return roverName

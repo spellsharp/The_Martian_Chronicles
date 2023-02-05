@@ -2,18 +2,17 @@ import sys
 import Fetch
 import os
 import ezgmail
-import re
+
 from PySide6 import QtCore, QtWidgets, QtGui
-from PySide6.QtWidgets import QLabel, QLineEdit
+from PySide6.QtWidgets import QLabel, QLineEdit, QComboBox
 from PySide6.QtGui import QPixmap
 
-cdPath = '/home/shrisharanyan/NasaDesktopApp/'
-path = '/home/shrisharanyan/NasaDesktopApp/marsImages/'
+cdPath = '/home/shrisharanyan/The_Martian_Chronicles/'
+path = '/home/shrisharanyan/The_Martian_Chronicles/marsImages/'
 imgList = os.listdir(path)
 print(imgList)
 
-
-
+from shareWindow import ShareWindow
 class MyWidget(QtWidgets.QWidget):
 
     def __init__(self):
@@ -43,61 +42,62 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def magic(self):
+        self.prev.close()
         self.fetch.setEnabled(True)
-        MyWidget.magic.name = Fetch.Name()
+        
 
         imgList = os.listdir(path)
-        self.label = QLabel(self)
-        self.label.move(40,50)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(900,900)
 
-        if len(imgList) > 0:
-            try:
-                pixmap = QPixmap(os.path.join(path,Fetch.Name()))
+        for i in range(len(Fetch.Name())):
+            MyWidget.magic.name = Fetch.Name()
+
+            self.label = QLabel(self)
+            Width = MyWidget.parameter.imgwidth
+            Height = MyWidget.parameter.imgheight
+            if i%2==0:
+                self.label.move(60,60+int(Height*i))
+            if i%2 != 0:
+                self.label.move(500,60+int((Height)*(i-1)))
+            
+            
+
+            self.label.resize(Width,Height)
+
+            if len(imgList) > 0:
+                pixmap = QPixmap(os.path.join(path, Fetch.Name()[i]))
                 self.label.setPixmap(pixmap)
                 self.label.show()
                 print("Image embedded in Window..")
-            except:
-                print("Try Again Later...")
+
+                # print("Try Again Later...")
 
         
         
     @QtCore.Slot()
 
     def inputBox(self):
-
-        self.width = QLineEdit(self)
-        self.width.setStyleSheet("QLineEdit {background-color: #4F4D53}")
-        self.layout.addWidget(self.width, alignment=QtCore.Qt.AlignBottom)
-        self.height = QLineEdit(self)
-        self.height.setStyleSheet("QLineEdit {background-color: #4F4D53}")
-        self.layout.addWidget(self.height, alignment=QtCore.Qt.AlignBottom)
-
-        self.enter = QtWidgets.QPushButton("Enter")
-        self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
-        self.enter.clicked.connect(self.parameter)
-
-        self.closeText = QtWidgets.QPushButton("Close")
-        self.layout.addWidget(self.closeText, alignment=QtCore.Qt.AlignBottom)
-        self.closeText.clicked.connect(self.closeFunc)
-
+        # self.widget = FetchWindow()
+        # self.widget.resize(550,550)
+        # self.widget.show()
+        
+        self.parameter()
         self.fetch.setEnabled(False)
 
 
     @QtCore.Slot()
     def parameter(self):
-        
-        global imgwidth
-        global imgheight
+       
         print("Recieved Parameters")
-        imgwidth = int(self.width.text())
-        imgheight = int(self.height.text())
-        self.width.close()
-        self.height.close()
-        self.enter.close()
-        self.closeText.close()
-        Fetch.Image(imgwidth,imgheight)
+
+        MyWidget.parameter.imgwidth = 350
+        MyWidget.parameter.imgheight = 350
+
+        # sol = FetchWindow.useParam.sol
+        # roverName = FetchWindow.useParam.roverName
+        # earthDate = FetchWindow.useParam.earthDate
+        # cameraName = FetchWindow.useParam.cameraName
+
+        Fetch.Image()
         self.magic()
 
     @QtCore.Slot()
@@ -115,80 +115,61 @@ class MyWidget(QtWidgets.QWidget):
         self.widget.resize(500, 500)
         self.widget.show()
 
+
+# class FetchWindow(QtWidgets.QWidget):
+#     def __init__(self):
+#         super().__init__()
+
+#         self.layout = QtWidgets.QVBoxLayout(self)
+#         self.setWindowTitle("Fetch")
         
+#         self.getParam()
+
+#     @QtCore.Slot()
+#     def getParam(self):
+
+#         self.sol = QLineEdit(self)
+#         self.layout.addWidget(self.sol)
+
+#         self.roverName = QLineEdit(self)
+#         self.layout.addWidget(self.roverName)
+
+#         self.earthDate = QLineEdit(self)
+#         self.layout.addWidget(self.earthDate)
+
+#         self.cameraName = QLineEdit(self)
+#         self.layout.addWidget(self.cameraName)
+
+#         self.enter = QtWidgets.QPushButton("Enter")
+#         self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
+#         self.enter.clicked.connect(self.useParam)
     
+#     @QtCore.Slot()
+#     def useParam(self):
+#         if self.sol.text() != '':
+#             FetchWindow.useParam.sol = self.sol.text()
+#         if self.roverName.text() != '':
+#             FetchWindow.useParam.roverName = self.roverName.text()
+#         if self.earthDate.text() != '':
+#             FetchWindow.useParam.earthDate = self.earthDate.text()
+#         if self.cameraName.text() != '':
+#             FetchWindow.useParam.cameraName = self.cameraName.text()
 
-class ShareWindow(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
 
-        self.layout = QtWidgets.QVBoxLayout(self)
-
-        self.setWindowTitle("Share")
-
-        self.emailLabel = QLabel(self)
-        self.subjectLabel = QLabel(self)
-        self.bodyLabel = QLabel(self)
-
-        self.emailLabel.setText("Email Ids: ")
-        self.emailLabel.move(15,70)
-        self.email = QLineEdit(self)
-        self.email.setAlignment(QtCore.Qt.AlignCenter)
-        self.layout.addWidget(self.email, alignment=QtCore.Qt.AlignBottom)
-        
-        self.subjectLabel.setText("Subject: ")
-        self.subjectLabel.move(15,180)
-        self.subject = QLineEdit(self)
-        self.subject.setAlignment(QtCore.Qt.AlignCenter)
-        self.layout.addWidget(self.subject, alignment=QtCore.Qt.AlignBottom)
-
-        self.bodyLabel.setText("Body: ")
-        self.bodyLabel.move(15,300)
-        self.body = QLineEdit(self)
-        self.body.setAlignment(QtCore.Qt.AlignCenter)
-        self.layout.addWidget(self.body, alignment=QtCore.Qt.AlignBottom)     
-        
-        self.enter = QtWidgets.QPushButton("Enter")
-        self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
-        self.enter.clicked.connect(self.close_input)
-
-    @QtCore.Slot()    
-    def close_input(self):
-        email = self.email.text()
-        subject = self.subject.text()
-        body = self.body.text()
-
-        print("Email: ", email)
-        print("Subject: ", subject)
-        print("Body: ", body)
-
-        # try:
-        ezgmail.send('boomchingshaka@gmail.com', f'{subject}', f'{body}',[os.path.join(path,f'{MyWidget.magic.name}')],cc=email)
-        # except AttributeError:
-        #     self.alert = PopUp.alert(self)
-        #     self.alert.show()
-        #     # I WANT TO ADD AN ALERT TELLING THE USER TO FETCH THE IMAGES FIRST.
-
-        # self.toast = PopUp.toast(self)
-        # self.toast.show()
-        print("Shared through mail!")
-        
-        self.close()       
-
-class PopUp(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Toast!")
-        self.layout = QtWidgets.QVBoxLayout(self)
-    def toast(self):
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.label = QLabel(self)
-        # self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setText("The emails were sent! Cheers!! :) ")
-    def alert(self):
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.label = QLabel(self)
-        self.label.setText("Download the image using the fetch button first!!")
+# class PopUp(QtWidgets.QWidget):
+#     def __init__(self):
+#         super().__init__()
+#         self.setWindowTitle("Toast!")
+#         self.layout = QtWidgets.QVBoxLayout(self)
+#     def toast(self):
+#         self.layout = QtWidgets.QVBoxLayout(self)
+#         self.label = QLabel(self)
+#         # self.label.setAlignment(QtCore.Qt.AlignCenter)
+#         self.label.setText("The emails were sent! Cheers!! :) ")
+#     def alert(self):
+#         self.layout = QtWidgets.QVBoxLayout(self)
+#         self.label = QLabel(self)
+#         self.label.setText("Download the image using the fetch button first!!")
 
 
 stylesheet = """
