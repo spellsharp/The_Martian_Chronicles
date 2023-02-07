@@ -16,7 +16,7 @@ class ShareWindow(QtWidgets.QWidget):
         super().__init__()
 
         self.layout = QtWidgets.QVBoxLayout(self)
-
+        self.setStyleSheet("background-color: #080117;")
         self.setWindowTitle("Share")
 
         self.emailLabel = QLabel(self)
@@ -27,18 +27,21 @@ class ShareWindow(QtWidgets.QWidget):
         self.emailLabel.move(15,70)
         self.email = QLineEdit(self)
         self.email.setAlignment(QtCore.Qt.AlignCenter)
+        self.email.setStyleSheet("background-color: #060111")
         self.layout.addWidget(self.email, alignment=QtCore.Qt.AlignBottom)
         
         self.subjectLabel.setText("Subject: ")
         self.subjectLabel.move(15,180)
         self.subject = QLineEdit(self)
         self.subject.setAlignment(QtCore.Qt.AlignCenter)
+        self.subject.setStyleSheet("background-color: #060111")
         self.layout.addWidget(self.subject, alignment=QtCore.Qt.AlignBottom)
 
         self.bodyLabel.setText("Body: ")
         self.bodyLabel.move(15,300)
         self.body = QLineEdit(self)
         self.body.setAlignment(QtCore.Qt.AlignCenter)
+        self.body.setStyleSheet("background-color: #060111")
         self.layout.addWidget(self.body, alignment=QtCore.Qt.AlignBottom)     
         
         self.enter = QtWidgets.QPushButton("Enter")
