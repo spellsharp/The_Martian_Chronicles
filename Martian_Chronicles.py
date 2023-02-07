@@ -3,7 +3,7 @@ import Fetch
 import os
 
 from PySide6 import QtCore, QtWidgets, QtGui
-from PySide6.QtWidgets import QLabel, QLineEdit, QComboBox
+from PySide6.QtWidgets import QLabel, QLineEdit, QComboBox, QApplication
 from PySide6.QtGui import QPixmap
 
 cdPath = '/home/shrisharanyan/The_Martian_Chronicles/'
@@ -32,11 +32,11 @@ class MyWidget(QtWidgets.QWidget):
 
         self.prev = QLabel(self)
         self.prev.resize(1000, 800)
-        pixmap = QPixmap(os.path.join(cdPath,'NASAbg.jpg'))
+        pixmap = QPixmap(os.path.join(cdPath,'NASALogo.png'))
         self.prev.setScaledContents(True)
-        # self.prev.move(436,100)
+        
         self.pixmap = pixmap.scaled(self.width(), self.height())
-        # self.prev.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.prev.setPixmap(self.pixmap)
         self.prev.setMinimumSize(1,1)
         
@@ -50,6 +50,8 @@ class MyWidget(QtWidgets.QWidget):
         imgList = os.listdir(path)
 
         for i in range(len(Fetch.Name())):
+            if i >= 4:
+                break
             MyWidget.magic.name = Fetch.Name()
 
             self.label = QLabel(self)
@@ -57,10 +59,10 @@ class MyWidget(QtWidgets.QWidget):
             Width = MyWidget.parameter.imgwidth
             Height = MyWidget.parameter.imgheight
             if i%2==0:
-                self.label.move(60,60+int(Height*i))
+                self.label.move(60,60+int(Height*i*0.75))
             if i%2 != 0:
                 self.label.move(500,60+int((Height)*(i-1)))
-            
+
             
 
             self.label.resize(Width,Height)
@@ -71,8 +73,8 @@ class MyWidget(QtWidgets.QWidget):
                 self.label.setScaledContents(True)
                 self.label.show()
                 print("Image embedded in Window..")
-
-                # print("Try Again Later...")
+                
+                
     
     @QtCore.Slot()
     def homeScreen(self):
@@ -178,7 +180,6 @@ class MyWidget(QtWidgets.QWidget):
         self.widget.resize(500, 500)
         self.widget.show()
         self.send.close()
-
 
 
 if __name__ == "__main__":
