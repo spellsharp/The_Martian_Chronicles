@@ -1,155 +1,13 @@
-import sys
-import Fetch
-import os
-
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtWidgets import QLabel, QLineEdit, QComboBox
 from PySide6.QtGui import QPixmap
 
-cdPath = '/home/shrisharanyan/The_Martian_Chronicles/'
-path = '/home/shrisharanyan/The_Martian_Chronicles/marsImages/'
-imgList = os.listdir(path)
-
-from shareWindow import ShareWindow
-# from fetchWindow import FetchWindow
-
-
-class MyWidget(QtWidgets.QWidget):
-
-    def __init__(self):
-        super().__init__()
-        
-
-        self.setStyleSheet("background-color: #080117;")
-        self.setWindowTitle("Mars Rover Image")
-        self.layout = QtWidgets.QHBoxLayout(self)
-
-        self.home = QtWidgets.QPushButton("Home")
-        self.layout.addWidget(self.home, alignment=QtCore.Qt.AlignBottom)
-        self.home.clicked.connect(self.homeScreen)
-
-        self.fetch = QtWidgets.QPushButton("Fetch - Display")
-        self.layout.addWidget(self.fetch, alignment=QtCore.Qt.AlignBottom)
-        self.fetch.clicked.connect(self.inputBox)
-
-        self.send = QtWidgets.QPushButton("Share")
-        self.layout.addWidget(self.send, alignment=QtCore.Qt.AlignBottom)
-        self.send.clicked.connect(self.send_mail)
-
-
-        self.prev = QLabel(self)
-        self.prev.resize(1000, 800)
-        pixmap = QPixmap(os.path.join(cdPath,'NASAbg.jpg'))
-        # self.prev.setScaledContents(True)
-        self.pixmap = pixmap.scaled(self.width(), self.height())
-        self.prev.setAlignment(QtCore.Qt.AlignCenter)
-        self.prev.setPixmap(self.pixmap)
-        self.prev.setMinimumSize(1,1)
-        
-
-    @QtCore.Slot()
-    def magic(self):
-        self.prev.close()
-        self.fetch.setEnabled(True)
-        
-
-        imgList = os.listdir(path)
-
-        for i in range(len(Fetch.Name())):
-            MyWidget.magic.name = Fetch.Name()
-
-            self.label = QLabel(self)
-            
-            Width = MyWidget.parameter.imgwidth
-            Height = MyWidget.parameter.imgheight
-            if i%2==0:
-                self.label.move(60,60+int(Height*i))
-            if i%2 != 0:
-                self.label.move(500,60+int((Height)*(i-1)))
-            
-            
-
-            self.label.resize(Width,Height)
-
-            if len(imgList) > 0:
-                pixmap = QPixmap(os.path.join(path, Fetch.Name()[i]))
-                self.label.setPixmap(pixmap)
-                self.label.setScaledContents(True)
-                self.label.show()
-                print("Image embedded in Window..")
-
-                # print("Try Again Later...")
-    
-    @QtCore.Slot()
-    def homeScreen(self):
-        try: 
-            self.widget = MyWidget()
-            self.widget.resize(1000,1020)
-            self.widget.show()
-            self.close()
-        except:
-            print("Home screen error")
-        
-        
-    @QtCore.Slot()
-    def inputBox(self):
-        global rover
-        global sol
-        global camera
-        global earthdate
-
-        # self.widget1 = FetchWindow()
-        # self.widget1.resize(550,550)
-        # self.widget1.show()
-
-        # rover = self.widget1.Rover1
-        # sol = self.widget1.Sol1
-        # camera = self.widget1.Camera1
-        # earthdate = self.widget1.Earthdate1
-
-        # print(rover)
-        # print(sol)
-        # print(camera)
-        # print(earthdate)
-        
-        self.parameter()
-
-        self.fetch.setEnabled(False)
-
-
-    @QtCore.Slot()
-    def parameter(self):
-
-        print()
-        print("Recieved Parameters")
-        print()
-
-        MyWidget.parameter.imgwidth = 350
-        MyWidget.parameter.imgheight = 350
-
-        Fetch.Image()
-        self.magic()
-
-    @QtCore.Slot()
-    def closeFunc(self):
-        self.width.close()
-        self.height.close()
-        self.enter.close()
-        self.closeText.close()
-        self.fetch.setEnabled(True)
-        
-
-    @QtCore.Slot()
-    def send_mail(self):
-        self.widget = ShareWindow()
-        self.widget.resize(500, 500)
-        self.widget.show()
-
-
 class FetchWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+
         self.setStyleSheet("background-color: rgb(13, 2, 30);")
+
         self.enterButton = QtWidgets.QPushButton(self)
         self.enterButton.setGeometry(QtCore.QRect(10, 360, 141, 25))
         self.enterButton.setStyleSheet("background-color: rgb(154, 153, 150);")
@@ -262,7 +120,6 @@ class FetchWindow(QtWidgets.QWidget):
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
-
     @QtCore.Slot()
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -289,21 +146,11 @@ class FetchWindow(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def input(self):
-
-        self.Rover1 = self.roverCombo.currentText().lower()
-        self.Camera1 = self.cameraCombo.currentText().lower()
-        self.Sol1 = self.solLine.text()
-        self.Earthdate1 = self.earthdateLine.text()
-        # print(rover)
-        # print(camera)
-        # print(sol)
-        # print(earthdate)
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    widget = MyWidget()
-    widget.resize(1000,1020)
-    widget.show()
-
-    sys.exit(app.exec())
+        FetchWindow.input.rover = self.roverCombo.currentText().lower()
+        FetchWindow.input.camera = self.cameraCombo.currentText().lower()
+        FetchWindow.input.sol = self.solLine.text()
+        FetchWindow.input.earthdate = self.earthdateLine.text()
+        print(FetchWindow.input.rover)
+        print(FetchWindow.input.camera)
+        print(FetchWindow.input.sol)
+        print(FetchWindow.input.earthdate)

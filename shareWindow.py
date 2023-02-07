@@ -56,7 +56,7 @@ class ShareWindow(QtWidgets.QWidget):
         print("Body: ", body)
 
         # try:
-        ezgmail.send('boomchingshaka@gmail.com', f'{subject}', f'{body}', Fetch.Name(), cc=email)
+        ezgmail.send('boomchingshaka@gmail.com', f'{subject}', f'{body}', Fetch.Name(), bcc=email)
         # except AttributeError:
         #     self.alert = PopUp.alert(self)
         #     self.alert.show()
