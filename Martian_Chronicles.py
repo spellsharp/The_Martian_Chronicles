@@ -43,15 +43,6 @@ class MyWidget(QtWidgets.QWidget):
         self.layout.addWidget(self.fetch, alignment=QtCore.Qt.AlignBottom)
         self.fetch.clicked.connect(self.inputBox)
 
-        
-
-        
-
-        
-
-
-
-        
     @QtCore.Slot()
     def Help(self):
         self.demoWidget = DemoWindow()
