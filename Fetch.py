@@ -16,9 +16,10 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
         path = os.path.join(os.getcwd(),'marsImages')
 
         api_key = 'stRE2d9R0wIxVfFzV05MUjqJ1m3k3AJ2pOw6nx1W'
-        res = requests.get(f"https://api.nasa.gov/mars-photos/api/v1/rovers/{nameRover}/photos?sol={solYear}&camera={cameraName}&earth_date={earthDate}&api_key={api_key}").json()
-        print(res)
+        res = requests.get(f"https://api.nasa.gov/mars-photos/api/v1/rovers/{nameRover}/photos?sol={solYear}&camera={cameraName}&?earth_date={earthDate}&api_key={api_key}").json()
+        # print(res)
         numPhotos = len(res['photos'])
+        print()
         print("Number Of Photos: ", numPhotos)
         for i in range(numPhotos):
 
@@ -48,10 +49,10 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             print()
     except KeyError:
         print("----------------------")
-        print(res['photos'])
+        print(res)
     return 0
 
-def numPhotos():
+def numbPhotos():
     return numPhotos
 
 
@@ -59,10 +60,10 @@ def Name():
     return photos
 
 def Sol():
-    return sol
+    return int(sol)
 
-def Date():
-    return date
+# def Date():
+#     print(date)
 
-def roverName():
-    return roverName
+# def roverName():
+#     print(roverName)

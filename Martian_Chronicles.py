@@ -4,8 +4,8 @@ import os
 
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtWidgets import QLabel, QLineEdit, QComboBox, QApplication
-from PySide6.QtGui import QPixmap
-
+from PySide6.QtGui import QPixmap, QMovie
+import time
 cdPath = '/home/shrisharanyan/The_Martian_Chronicles/'
 path = '/home/shrisharanyan/The_Martian_Chronicles/marsImages/'
 imgList = os.listdir(path)
@@ -18,9 +18,22 @@ class MyWidget(QtWidgets.QWidget):
         super().__init__()
         
 
+        self.prev = QLabel(self)
+        self.prev.resize(1000, 800)
+        pixmap = QPixmap(os.path.join(cdPath,'NASALogo.png'))
+        self.prev.setScaledContents(True)
+        self.pixmap = pixmap.scaled(self.width(), self.height())
+        self.prev.setPixmap(self.pixmap)
+        self.prev.setMinimumSize(1,1)
+        # self.setCentralWidget(self.prev)
+        
         self.setStyleSheet("background-color: #080117;")
         self.setWindowTitle("Mars Rover Image")
         self.layout = QtWidgets.QHBoxLayout(self)
+
+        self.help = QtWidgets.QPushButton("Help")
+        self.layout.addWidget(self.help, alignment=QtCore.Qt.AlignBottom)
+        self.help.clicked.connect(self.Help)
 
         self.home = QtWidgets.QPushButton("Home")
         self.layout.addWidget(self.home, alignment=QtCore.Qt.AlignBottom)
@@ -30,19 +43,24 @@ class MyWidget(QtWidgets.QWidget):
         self.layout.addWidget(self.fetch, alignment=QtCore.Qt.AlignBottom)
         self.fetch.clicked.connect(self.inputBox)
 
-        self.prev = QLabel(self)
-        self.prev.resize(1000, 800)
-        pixmap = QPixmap(os.path.join(cdPath,'NASALogo.png'))
-        self.prev.setScaledContents(True)
         
-        self.pixmap = pixmap.scaled(self.width(), self.height())
+
         
-        self.prev.setPixmap(self.pixmap)
-        self.prev.setMinimumSize(1,1)
+
         
+
+
+
+        
+    @QtCore.Slot()
+    def Help(self):
+        self.demoWidget = DemoWindow()
+        self.demoWidget.resize(300,200)
+        self.demoWidget.show()
 
     @QtCore.Slot()
     def magic(self):
+        # self.movie.stop()
         self.prev.close()
         self.fetch.setEnabled(True)
         
@@ -50,7 +68,7 @@ class MyWidget(QtWidgets.QWidget):
         imgList = os.listdir(path)
 
         for i in range(len(Fetch.Name())):
-            if i >= 4:
+            if i == 4:
                 break
             MyWidget.magic.name = Fetch.Name()
 
@@ -78,6 +96,11 @@ class MyWidget(QtWidgets.QWidget):
     
     @QtCore.Slot()
     def homeScreen(self):
+        try:
+            self.demoWidget.close()
+        except:
+            pass
+
         try: 
             self.widget = MyWidget()
             self.widget.resize(1000,1020)
@@ -89,6 +112,7 @@ class MyWidget(QtWidgets.QWidget):
         
     @QtCore.Slot()
     def inputBox(self):
+        self.help.close()
         global rover
         global sol
         global camera
@@ -126,6 +150,7 @@ class MyWidget(QtWidgets.QWidget):
 
         self.enter = QtWidgets.QPushButton("Enter")
         self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
+
         self.enter.clicked.connect(self.parameter)
 
 
@@ -134,11 +159,40 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def parameter(self):
+        # self.label = QLabel(self)
+        # self.label.setGeometry(QtCore.QRect(25, 25, 200, 200))
+        # self.label.setMinimumSize(QtCore.QSize(250, 250))
+        # self.label.setMaximumSize(QtCore.QSize(250, 250))
+
+        # self.movie = QMovie("Loading.gif")
+        # self.label.setMovie(self.movie)
+        # self.movie.start()
+
         sol = self.sol.text()
         earthdate = self.earthdate.text()
         rover = self.rover.currentText().lower()
         camera = self.camera.currentText().lower()
+
         
+
+        #default or example parameters
+        if sol == 'sol' or '':
+            print()
+            print("Using default sol parameter: 1000")
+            sol = '1000'
+        if earthdate == '<yyyy-m-d>' or '':
+            print()
+            print("Using default earthDate parameter: 2015-6-3")
+            earthdate =  '2015-6-3'
+        if rover == 'choose rover':
+            print()
+            print("Using default roverName parameter: curiosity")
+            rover = 'curiosity'
+        if camera == 'choose camera':
+            print()
+            print("Using default cameraName parameter: fhaz")
+            camera = 'fhaz'
+
         print()
         print("Recieved Parameters")
         print(rover)
@@ -181,6 +235,30 @@ class MyWidget(QtWidgets.QWidget):
         self.widget.show()
         self.send.close()
 
+class DemoWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Demo")
+        self.setStyleSheet("background-color: #080117;")
+        self.demo = QLabel(self)
+        self.demLayout = QtWidgets.QHBoxLayout(self)
+        self.demo.setText("""Click the 'Fetch-Display' button.
+
+If you wish for built-in parameters to be taken 
+then click 'Enter' directly without altering the values.
+
+You may choose to enter your own parameters 
+and then click 'Enter' button, in which case, 
+your entered parameters will be considered.
+
+After the images are displayed, click 'Share'
+to send these images as attachments to whoever you want.
+You can edit the subject and body of the mail if you wish.
+
+Click 'Home' if you want to restart the app.""")
+        self.demo.adjustSize()
+        self.demLayout.addWidget(self.demo)
+        
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

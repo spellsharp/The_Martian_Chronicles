@@ -71,9 +71,20 @@ class ShareWindow(QtWidgets.QWidget):
         
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 430, 22))
+        # rover = Fetch.roverName()
+        sol = Fetch.Sol()
+        # date = Fetch.Date()
+        num = Fetch.numbPhotos()
         
-        
-        
+        self.subjectLine.setText("Latest Photos - NASA Mars Rover")
+        self.bodyText.setText(f"""Latest photos taken by NASA Mars rover, in the Solar Year {sol}, have been sent to you as attachments.
+
+Number of attachments: {num}
+
+Please enjoy!
+
+Regards,
+Sharan""")
         
         
         
