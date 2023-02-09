@@ -60,7 +60,7 @@ Tried creating another window for getting parameters from user like with ShareWi
 
 But there is a problem with the way I use the class instance variable(that's what its called if I recall)
 
-I have decided to forget about creating another class for Fetch. It must be a minor mistake and I've spent an entire day on it. I don't have much time. People are catching up to me.
+I have decided to forget about creating another class for Fetch. It must be a minor mistake and I've spent an entire day on it. I don't have much time. Turns out someone has almost finished it. I don't want to lag behind.
 
 - After using the Qt Designer and trying to understand it, I found out that you can create a big layout in which you can place smaller layouts and in those smaller layouts you could add for example a QLabel and a QLineEdit or another widget together for better alignment.
 
