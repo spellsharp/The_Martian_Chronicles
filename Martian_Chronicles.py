@@ -56,7 +56,7 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def magic(self):
-        
+        self.movie.stop()
         self.prev.close()
         self.fetch.setEnabled(True)
     
@@ -213,7 +213,21 @@ class MyWidget(QtWidgets.QWidget):
         MyWidget.parameter.imgwidth = 350
         MyWidget.parameter.imgheight = 350
 
+        # self.label = QtWidgets.QLabel(self)
+        # self.label.setGeometry(QtCore.QRect(25, 25, 200, 200))
+        # self.label.setMinimumSize(QtCore.QSize(250, 250))
+        # self.label.setMaximumSize(QtCore.QSize(250, 250))
+        
+        # # Loading the GIF
+        # self.prev.close()
+        # self.movie = QMovie("Loading.gif")
+        # self.label.setMovie(self.movie)
+        # self.movie.start()
+        # print("Movie...")
+
         Fetch.Image(rover, sol, camera, earthdate)
+
+        
 
         self.send = QtWidgets.QPushButton("Share")
         self.layout.addWidget(self.send, alignment=QtCore.Qt.AlignBottom)
