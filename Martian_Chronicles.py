@@ -74,7 +74,7 @@ class MyWidget(QtWidgets.QWidget):
             self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
         except IndexError:
-            print("No Images found for given parameters.")
+            #print("No Images found for given parameters.")
             self.prev.show()
             self.homeScreen()
                 
@@ -90,7 +90,7 @@ class MyWidget(QtWidgets.QWidget):
         try:
             Name.clear()
         except:
-            print("Empty List")
+            pass
 
         try:      
             self.widget = MyWidget()
@@ -108,7 +108,7 @@ class MyWidget(QtWidgets.QWidget):
         try:
             Name.clear()
         except:
-            print("Empty List")
+            pass
 
         try:
             self.next.close()
@@ -201,7 +201,6 @@ class MyWidget(QtWidgets.QWidget):
         print(sol)
         print(camera)
         print(earthdate)
-        print("Display List: \n",Name)
 
         self.sol.close()
         self.earthdate.close()
