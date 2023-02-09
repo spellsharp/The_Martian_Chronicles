@@ -106,7 +106,8 @@ class MyWidget(QtWidgets.QWidget):
         
     @QtCore.Slot()
     def inputBox(self):
-
+        global imgNum
+        imgNum = 0
         try:
             Name.clear()
         except:
@@ -115,6 +116,8 @@ class MyWidget(QtWidgets.QWidget):
         try:
             self.next.close()
             self.pre.close()
+            self.num.close()
+            self.send.close()
         except:
             pass
 
