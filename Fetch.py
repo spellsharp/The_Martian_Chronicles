@@ -4,7 +4,7 @@ from PIL import Image as img
 
 photos = []
 
-def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2015-6-3', img_width=350, img_height=350):
+def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2015-6-3', img_width=500, img_height=500):
 
     try: 
         global imgUrl

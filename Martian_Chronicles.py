@@ -223,8 +223,8 @@ class MyWidget(QtWidgets.QWidget):
 
         print()
 
-        MyWidget.parameter.imgwidth = 350
-        MyWidget.parameter.imgheight = 350
+        MyWidget.parameter.imgwidth = 500
+        MyWidget.parameter.imgheight = 500
 
         Fetch.Image(rover, sol, camera, earthdate)
 
