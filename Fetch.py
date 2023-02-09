@@ -15,7 +15,12 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
         os.makedirs('marsImages',exist_ok=True)
         path = os.path.join(os.getcwd(),'marsImages')
 
-        api_key = 'stRE2d9R0wIxVfFzV05MUjqJ1m3k3AJ2pOw6nx1W'
+        # stRE2d9R0wIxVfFzV05MUjqJ1m3k3AJ2pOw6nx1W
+        # MyG8gwSTFPwax20aBofVEvR1mP2hwCgW8l60RM0C
+        # 07OpzC4a1zoNdt0PDDPnoDJOJbA6EETPbAbl8WsZ
+
+        api_key = '07OpzC4a1zoNdt0PDDPnoDJOJbA6EETPbAbl8WsZ'
+        
         res = requests.get(f"https://api.nasa.gov/mars-photos/api/v1/rovers/{nameRover}/photos?sol={solYear}&camera={cameraName}&?earth_date={earthDate}&api_key={api_key}").json()
         # print(res)
         numPhotos = len(res['photos'])

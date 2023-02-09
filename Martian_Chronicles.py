@@ -12,7 +12,12 @@ imgList = os.listdir(path)
 
 from shareWindow import ShareWindow
 
+#Passing the address of Fetch.Name() to Name. Accessing the same list.
+Name = Fetch.Name()
+
 class MyWidget(QtWidgets.QWidget):
+    global imgNum
+    imgNum = 0
 
     def __init__(self):
         super().__init__()
@@ -51,37 +56,26 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def magic(self):
-        # self.movie.stop()
+        
         self.prev.close()
         self.fetch.setEnabled(True)
+    
+
+        MyWidget.magic.name = Name
+
+        self.label = QLabel(self)
         
-
-        imgList = os.listdir(path)
-
-        for i in range(len(Fetch.Name())):
-            if i == 4:
-                break
-            MyWidget.magic.name = Fetch.Name()
-
-            self.label = QLabel(self)
-            
-            Width = MyWidget.parameter.imgwidth
-            Height = MyWidget.parameter.imgheight
-            if i%2==0:
-                self.label.move(60,60+int(Height*i*0.75))
-            if i%2 != 0:
-                self.label.move(500,60+int((Height)*(i-1)))
-
-            
-
-            self.label.resize(Width,Height)
-
-            if len(imgList) > 0:
-                pixmap = QPixmap(os.path.join(path, Fetch.Name()[i]))
-                self.label.setPixmap(pixmap)
-                self.label.setScaledContents(True)
-                self.label.show()
-                print("Image embedded in Window..")
+        Width = MyWidget.parameter.imgwidth
+        Height = MyWidget.parameter.imgheight
+        try:
+            pixmap = QPixmap(os.path.join(path, Name[0]))
+            self.label.setPixmap(pixmap)
+            self.label.resize(300,300)
+            self.label.show()
+        except IndexError:
+            print("No Images found for given parameters.")
+            self.prev.show()
+            self.homeScreen()
                 
                 
     
@@ -92,17 +86,35 @@ class MyWidget(QtWidgets.QWidget):
         except:
             pass
 
-        try: 
+        try:
+            Name.clear()
+        except:
+            print("Could not clear list")
+
+        try:      
             self.widget = MyWidget()
             self.widget.resize(1000,1020)
             self.widget.show()
             self.close()
         except:
             print("Home screen error")
+
         
         
     @QtCore.Slot()
     def inputBox(self):
+
+        try:
+            Name.clear()
+        except:
+            print("Could not clear list")
+
+        try:
+            self.next.close()
+            self.pre.close()
+        except:
+            pass
+
         self.help.close()
         global rover
         global sol
@@ -141,7 +153,6 @@ class MyWidget(QtWidgets.QWidget):
 
         self.enter = QtWidgets.QPushButton("Enter")
         self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
-
         self.enter.clicked.connect(self.parameter)
 
 
@@ -149,16 +160,15 @@ class MyWidget(QtWidgets.QWidget):
 
 
     @QtCore.Slot()
-    def parameter(self):
-        # self.label = QLabel(self)
-        # self.label.setGeometry(QtCore.QRect(25, 25, 200, 200))
-        # self.label.setMinimumSize(QtCore.QSize(250, 250))
-        # self.label.setMaximumSize(QtCore.QSize(250, 250))
+    def parameter(self):        
+        self.next = QtWidgets.QPushButton("Next")
+        self.layout.addWidget(self.next, alignment=QtCore.Qt.AlignBottom)
+        self.next.clicked.connect(self.nextImg)
 
-        # self.movie = QMovie("Loading.gif")
-        # self.label.setMovie(self.movie)
-        # self.movie.start()
-
+        self.pre = QtWidgets.QPushButton("Previous")
+        self.layout.addWidget(self.pre, alignment=QtCore.Qt.AlignBottom)
+        self.pre.clicked.connect(self.prevImg)
+        
         sol = self.sol.text()
         earthdate = self.earthdate.text()
         rover = self.rover.currentText().lower()
@@ -190,6 +200,7 @@ class MyWidget(QtWidgets.QWidget):
         print(sol)
         print(camera)
         print(earthdate)
+        print("Display List: \n",Name)
 
         self.sol.close()
         self.earthdate.close()
@@ -207,7 +218,6 @@ class MyWidget(QtWidgets.QWidget):
         self.send = QtWidgets.QPushButton("Share")
         self.layout.addWidget(self.send, alignment=QtCore.Qt.AlignBottom)
         self.send.clicked.connect(self.send_mail)
-
         self.magic()
 
     @QtCore.Slot()
@@ -225,6 +235,50 @@ class MyWidget(QtWidgets.QWidget):
         self.widget.resize(500, 500)
         self.widget.show()
         self.send.close()
+
+    def nextImg(self):
+        self.pre.setEnabled(True)
+        global imgNum
+
+        if imgNum < len(Name) - 1:
+            imgNum += 1
+            if imgNum == len(Name) - 1:
+                self.next.setEnabled(False)
+            
+
+        try:
+            print("Image Number: ", imgNum+1)
+        except:
+            print(imgNum)
+        
+        pixmap = QPixmap(os.path.join(path, Name[imgNum]))
+        self.label.setPixmap(pixmap)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.resize(500,500)
+        self.label.show()
+
+    def prevImg(self):
+        global imgNum
+        self.next.setEnabled(True)
+        
+
+        if imgNum > 0:
+            imgNum -= 1
+            if imgNum == 0:
+                self.pre.setEnabled(False)
+
+        try:
+            print("Image Number: ", imgNum+1)
+        except:
+            print(imgNum)        
+
+        pixmap = QPixmap(os.path.join(path, Name[imgNum]))
+        self.label.setPixmap(pixmap)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.resize(500,500)
+        self.label.show()
+
+
 
 class DemoWindow(QtWidgets.QWidget):
     def __init__(self):
