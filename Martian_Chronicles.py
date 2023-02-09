@@ -70,7 +70,8 @@ class MyWidget(QtWidgets.QWidget):
         try:
             pixmap = QPixmap(os.path.join(path, Name[0]))
             self.label.setPixmap(pixmap)
-            self.label.resize(300,300)
+            self.label.resize(800,800)
+            self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
         except IndexError:
             print("No Images found for given parameters.")
@@ -89,7 +90,7 @@ class MyWidget(QtWidgets.QWidget):
         try:
             Name.clear()
         except:
-            print("Could not clear list")
+            print("Empty List")
 
         try:      
             self.widget = MyWidget()
@@ -107,7 +108,7 @@ class MyWidget(QtWidgets.QWidget):
         try:
             Name.clear()
         except:
-            print("Could not clear list")
+            print("Empty List")
 
         try:
             self.next.close()
@@ -254,7 +255,7 @@ class MyWidget(QtWidgets.QWidget):
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
         self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(500,500)
+        self.label.resize(800,800)
         self.label.show()
 
     def prevImg(self):
@@ -275,7 +276,7 @@ class MyWidget(QtWidgets.QWidget):
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
         self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(500,500)
+        self.label.resize(800,800)
         self.label.show()
 
 
