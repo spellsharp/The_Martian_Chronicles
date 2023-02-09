@@ -52,9 +52,15 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             photos.append(os.path.join(path,os.path.basename(url)))
             print('Image Download Succesful!')
             print()
+            
     except KeyError:
         print("----------------------")
         print(res)
+
+    except KeyboardInterrupt:
+        print("Fetch Terminated...")
+        pass
+
     return 0
 
 def numbPhotos():

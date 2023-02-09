@@ -56,7 +56,7 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def magic(self):
-        self.movie.stop()
+        # self.movie.stop()
         self.prev.close()
         self.fetch.setEnabled(True)
     
@@ -70,9 +70,11 @@ class MyWidget(QtWidgets.QWidget):
         try:
             pixmap = QPixmap(os.path.join(path, Name[0]))
             self.label.setPixmap(pixmap)
-            self.label.resize(800,800)
+            self.label.move(300,300)
+            self.label.resize(350,350)
             self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
+            self.num.setText(f"{imgNum+1}/{len(Name)}")
         except IndexError:
             #print("No Images found for given parameters.")
             self.prev.show()
@@ -161,46 +163,54 @@ class MyWidget(QtWidgets.QWidget):
 
 
     @QtCore.Slot()
-    def parameter(self):        
-        self.next = QtWidgets.QPushButton("Next")
-        self.layout.addWidget(self.next, alignment=QtCore.Qt.AlignBottom)
-        self.next.clicked.connect(self.nextImg)
+    def parameter(self): 
 
         self.pre = QtWidgets.QPushButton("Previous")
         self.layout.addWidget(self.pre, alignment=QtCore.Qt.AlignBottom)
         self.pre.clicked.connect(self.prevImg)
+
+        self.num = QLabel(self)
+        self.layout.addWidget(self.num, alignment=QtCore.Qt.AlignBottom)
+        # self.num.resize(10,25)
+        self.next = QtWidgets.QPushButton("Next")
+        self.layout.addWidget(self.next, alignment=QtCore.Qt.AlignBottom)
+        self.next.clicked.connect(self.nextImg)
         
         sol = self.sol.text()
         earthdate = self.earthdate.text()
         rover = self.rover.currentText().lower()
         camera = self.camera.currentText().lower()
 
-        
+        defaultRover = ''
+        defaultSol = ''
+        defaultCamera = ''
+        defaultEarth = ''
 
         #default or example parameters
         if sol == 'sol' or '':
-            print()
-            print("Using default sol parameter: 1000")
+            defaultSol = ' (default)'
             sol = '1000'
         if earthdate == '<yyyy-m-d>' or '':
-            print()
-            print("Using default earthDate parameter: 2015-6-3")
+            defaultEarth = ' (default)'
             earthdate =  '2015-6-3'
         if rover == 'choose rover':
-            print()
-            print("Using default roverName parameter: curiosity")
+            defaultRover = ' (default)'
             rover = 'curiosity'
         if camera == 'choose camera':
-            print()
-            print("Using default cameraName parameter: fhaz")
+            defaultCamera = ' (default)'
             camera = 'fhaz'
 
+        
+
         print()
-        print("Recieved Parameters")
-        print(rover)
-        print(sol)
-        print(camera)
-        print(earthdate)
+        print("---------------------------------------")
+        print("RECEIVED PARAMETERS")
+        print("---------------------------------------")
+        print("Rover Name" + ": ".rjust(3), rover.rjust(12) + defaultRover)
+        print("Sol" + ": ".rjust(10), sol.rjust(12) + defaultSol)
+        print("Camera Name: ", camera.rjust(12) + defaultCamera)
+        print("Earth date"+": ".rjust(3), earthdate.rjust(12) + defaultEarth)
+        print("---------------------------------------")
 
         self.sol.close()
         self.earthdate.close()
@@ -213,21 +223,8 @@ class MyWidget(QtWidgets.QWidget):
         MyWidget.parameter.imgwidth = 350
         MyWidget.parameter.imgheight = 350
 
-        # self.label = QtWidgets.QLabel(self)
-        # self.label.setGeometry(QtCore.QRect(25, 25, 200, 200))
-        # self.label.setMinimumSize(QtCore.QSize(250, 250))
-        # self.label.setMaximumSize(QtCore.QSize(250, 250))
-        
-        # # Loading the GIF
-        # self.prev.close()
-        # self.movie = QMovie("Loading.gif")
-        # self.label.setMovie(self.movie)
-        # self.movie.start()
-        # print("Movie...")
-
         Fetch.Image(rover, sol, camera, earthdate)
 
-        
 
         self.send = QtWidgets.QPushButton("Share")
         self.layout.addWidget(self.send, alignment=QtCore.Qt.AlignBottom)
@@ -258,17 +255,14 @@ class MyWidget(QtWidgets.QWidget):
             imgNum += 1
             if imgNum == len(Name) - 1:
                 self.next.setEnabled(False)
-            
 
-        try:
-            print("Image Number: ", imgNum+1)
-        except:
-            print(imgNum)
+        self.num.setText(f"{imgNum+1}/{len(Name)}")
+        
         
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
-        self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(800,800)
+        self.label.setPixmap(pixmap)
+        self.label.resize(350,350)
         self.label.show()
 
     def prevImg(self):
@@ -281,15 +275,13 @@ class MyWidget(QtWidgets.QWidget):
             if imgNum == 0:
                 self.pre.setEnabled(False)
 
-        try:
-            print("Image Number: ", imgNum+1)
-        except:
-            print(imgNum)        
+        self.num.setText(f"{imgNum+1}/{len(Name)}")
+       
 
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
         self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(800,800)
+        self.label.resize(350,350)
         self.label.show()
 
 
@@ -324,5 +316,4 @@ if __name__ == "__main__":
     widget = MyWidget()
     widget.resize(1000,1020)
     widget.show()
-
     sys.exit(app.exec())
