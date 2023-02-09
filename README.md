@@ -92,7 +92,7 @@ Done with the project. Hopefully there isn't anything I missed.
 I learnt a lot while working on this project. Interacting with one of my friends was quite interesting as well. He told me he was implementing 'threading' and I got curious about it. So I naturally googled and got an idea of what it was. I recall threading was introduced in the ATBSWP book but its practical use was not really made clear.
 
 -----------------------------------------------
-Thank you for giving us this project and the oppurtunity to work on this.
+Thank you for giving us this project and the opportunity to work on it.
 
 
  
