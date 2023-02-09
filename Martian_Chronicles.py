@@ -26,14 +26,14 @@ class MyWidget(QtWidgets.QWidget):
         self.prev = QLabel(self)
         self.prev.resize(1000, 800)
         pixmap = QPixmap(os.path.join(cdPath,'NASALogo.png'))
-        self.prev.setScaledContents(True)
+        # self.prev.setScaledContents(True)
+        self.prev.setAlignment(QtCore.Qt.AlignCenter)
         self.pixmap = pixmap.scaled(self.width(), self.height())
         self.prev.setPixmap(self.pixmap)
         self.prev.setMinimumSize(1,1)
-        # self.setCentralWidget(self.prev)
         
         self.setStyleSheet("background-color: #080117;")
-        self.setWindowTitle("Mars Rover Image")
+        self.setWindowTitle("NASA - Mars Rover Images")
         self.layout = QtWidgets.QHBoxLayout(self)
 
         self.help = QtWidgets.QPushButton("Help")
@@ -75,6 +75,7 @@ class MyWidget(QtWidgets.QWidget):
             self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
             self.num.setText(f"{imgNum+1}/{len(Name)}")
+            self.setWindowTitle("Image(s)")
         except IndexError:
             #print("No Images found for given parameters.")
             self.prev.show()
@@ -263,6 +264,8 @@ class MyWidget(QtWidgets.QWidget):
         
         
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
+
+        self.setWindowTitle("Image(s)")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setPixmap(pixmap)
         self.label.resize(350,350)
@@ -280,7 +283,7 @@ class MyWidget(QtWidgets.QWidget):
 
         self.num.setText(f"{imgNum+1}/{len(Name)}")
        
-
+        self.setWindowTitle("Image(s)") 
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
         self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
