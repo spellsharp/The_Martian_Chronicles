@@ -1,7 +1,7 @@
 #Project Report
 
 
-##Day 1 (Got the task today):
+## Day 1 (Got the task today):
 
 
 Finished coding the functions
@@ -15,7 +15,7 @@ After doing this for a few hours, I can see patterns in the python code for the 
 - make layouts to add widgets into it so they all can be enclosed together. 
 
 --------------------------------------------
-##Day 2:
+## Day 2:
 
 
 Made some corrections to the code. I had misinterpreted the question before. 
@@ -33,7 +33,7 @@ After today,
 - I'm quite thrilled to have reached this far. I had no idea I would be making an actual desktop app
 
 ---------------------------------------------
-##Day 3:
+## Day 3:
 
 
 There isn't much for me to do. Just making minor changes. 
@@ -45,7 +45,7 @@ I created a different window for the 'Share' part of the task.
 - I plan on using the Qt designer for making the ShareWindow better in design.
 
 ---------------------------------------------
-##Day 4:
+## Day 4:
 
 
 Turns out the Qt Designer's code is a lot harder to understand after getting used to hardcoding my main window. 
@@ -53,7 +53,7 @@ Turns out the Qt Designer's code is a lot harder to understand after getting use
 - I probably won't use Qt Designer for my main window since there are already too many functions in my main class.
 
 ---------------------------------------------
-##Day 5:
+## Day 5:
 
 
 Tried creating another window for getting parameters from user like with ShareWindow.
@@ -74,7 +74,7 @@ I have decided to forget about creating another class for Fetch. It must be a mi
 
 
 ----------------------------------------------
-##Day 6:
+## Day 6:
 
 - I suppose today is the last day before submission. I don't have much left.
 
@@ -86,7 +86,7 @@ I have decided to forget about creating another class for Fetch. It must be a mi
 
 
 ----------------------------------------------
-##Day 7:
+## Day 7:
 Done with the project. Hopefully there isn't anything I missed.
 
 I learnt a lot while working on this project. Interacting with one of my friends was quite interesting as well. He told me he was implementing 'threading' and I got curious about it. So I naturally googled and got an idea of what it was. I recall threading was introduced in the ATBSWP book but its practical use was not really made clear.
