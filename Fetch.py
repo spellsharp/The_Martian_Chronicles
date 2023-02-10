@@ -35,7 +35,6 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             
             print()
             print(f'Downloading Image from: \n{url}')
-            print()
             imgRes = requests.get(url)
 
             marsImg = open(os.path.join(path,os.path.basename(url)), 'wb')
@@ -49,7 +48,7 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             resizeImg.thumbnail((img_width,img_height))
             resizeImg.save(os.path.join(path,os.path.basename(url)))
             photos.append(os.path.join(path,os.path.basename(url)))
-            print('Image Download Succesful!')
+            print('Image Downloaded!')
             print()
             
         if numPhotos > 0:
