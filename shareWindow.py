@@ -111,23 +111,18 @@ Sharan""")
         except:
             ShareWindow.close_input.success = 0
 
-        self.widget = PopUp()
-        self.widget.resize(400,150)
-        self.widget.show()
-
-class PopUp(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-        print("Message: The email was sent!")
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.setStyleSheet("background-color: #080117;")
-        self.toastLabel = QLabel(self)
+        toastLabel = QtWidgets.QMessageBox(self)
+        toastLabel.setStandardButtons(QtWidgets.QMessageBox.Ok)
         if ShareWindow.close_input.success == 1:
-            self.setWindowTitle("Congratulations!")
-            self.toastLabel.setText("The email was sent!")
+            toastLabel.setWindowTitle("Congratulations!")
+            toastLabel.setText("The email was sent!")
+            toastLabel.setIcon(QtWidgets.QMessageBox.Information)
+            toastLabel.exec_()
+            
         else:
-            self.setWindowTitle("Error!")
-            self.toastLabel.setText("""Email could not be sent.
+            toastLabel.setWindowTitle("Error!")
+            toastLabel.setText("""Email could not be sent.
 Enter correct parameters or Try again later""")
-        self.toastLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.layout.addWidget(self.toastLabel) 
+            toastLabel.setIcon(QtWidgets.QMessageBox.Warning)
+            toastLabel.exec_()
+        
