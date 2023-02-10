@@ -1,6 +1,6 @@
 api.py
 marsImages/
-_pycache__/
+__pycache__/
 accSID_authtoken.txt
 credentials.json
 token.json
