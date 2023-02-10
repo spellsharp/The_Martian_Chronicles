@@ -52,7 +52,9 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             photos.append(os.path.join(path,os.path.basename(url)))
             print('Image Download Succesful!')
             print()
-        print("All Images Downloaded!!")
+            
+        if numPhotos > 0:
+            print("All Images Downloaded!!")
             
     except KeyError:
         print("----------------------")

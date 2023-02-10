@@ -107,14 +107,13 @@ Sharan""")
             ezgmail.send('boomchingshaka@gmail.com', f'{subject}', f'{body}', Fetch.Name(), bcc=email)
             self.close()
             ShareWindow.close_input.success = 1
-            self.widget = PopUp()
-            self.widget.resize(400,150)
-            self.widget.show()
             print("Shared through mail!")
-
         except:
-            print("Fail")
             ShareWindow.close_input.success = 0
+
+        self.widget = PopUp()
+        self.widget.resize(400,150)
+        self.widget.show()
 
 class PopUp(QtWidgets.QWidget):
     def __init__(self):
@@ -122,9 +121,13 @@ class PopUp(QtWidgets.QWidget):
         print("Message: The email was sent!")
         self.layout = QtWidgets.QVBoxLayout(self)
         self.setStyleSheet("background-color: #080117;")
-        self.setWindowTitle("Congratulations!")
         self.toastLabel = QLabel(self)
         if ShareWindow.close_input.success == 1:
+            self.setWindowTitle("Congratulations!")
             self.toastLabel.setText("The email was sent!")
+        else:
+            self.setWindowTitle("Error!")
+            self.toastLabel.setText("""Email could not be sent.
+Enter correct parameters or Try again later""")
         self.toastLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.layout.addWidget(self.toastLabel) 
