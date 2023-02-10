@@ -1,1 +1,6 @@
 api.py
+marsImages/
+_pycache__/
+accSID_authtoken.txt
+credentials.json
+token.json

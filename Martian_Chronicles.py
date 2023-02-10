@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import Fetch
 import os
@@ -250,7 +252,7 @@ class MyWidget(QtWidgets.QWidget):
         self.widget = ShareWindow()
         self.widget.resize(500, 500)
         self.widget.show()
-        self.send.close()
+        # self.send.close()
 
     def nextImg(self):
         self.pre.setEnabled(True)
@@ -296,7 +298,7 @@ class MyWidget(QtWidgets.QWidget):
 class DemoWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Demo")
+        self.setWindowTitle("Help")
         self.setStyleSheet("background-color: #080117;")
         self.demo = QLabel(self)
         self.demLayout = QtWidgets.QHBoxLayout(self)

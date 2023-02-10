@@ -20,7 +20,13 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
         numPhotos = len(res['photos'])
         print()
         print("Number Of Photos: ", numPhotos)
-        for i in range(numPhotos):
+
+        if numPhotos > 20:
+            dispImg = 20
+        else:
+            dispImg = numPhotos
+
+        for i in range(dispImg):
 
             url = res['photos'][i]['img_src']
             imgUrl = url
@@ -46,6 +52,7 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             photos.append(os.path.join(path,os.path.basename(url)))
             print('Image Download Succesful!')
             print()
+        print("All Images Downloaded!!")
             
     except KeyError:
         print("----------------------")
