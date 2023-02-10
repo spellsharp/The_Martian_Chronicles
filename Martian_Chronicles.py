@@ -70,8 +70,8 @@ class MyWidget(QtWidgets.QWidget):
         try:
             pixmap = QPixmap(os.path.join(path, Name[0]))
             self.label.setPixmap(pixmap)
-            self.label.move(300,300)
-            self.label.resize(350,350)
+            self.label.move(25,25)
+            self.label.resize(850,850)
             self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
             self.num.setText(f"{imgNum+1}/{len(Name)}")
@@ -268,7 +268,7 @@ class MyWidget(QtWidgets.QWidget):
         self.setWindowTitle("Image(s)")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setPixmap(pixmap)
-        self.label.resize(350,350)
+        self.label.resize(850,850)
         self.label.show()
 
     def prevImg(self):
@@ -287,7 +287,7 @@ class MyWidget(QtWidgets.QWidget):
         pixmap = QPixmap(os.path.join(path, Name[imgNum]))
         self.label.setPixmap(pixmap)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.resize(350,350)
+        self.label.resize(850,850)
         self.label.show()
 
 
