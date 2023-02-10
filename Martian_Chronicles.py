@@ -21,7 +21,8 @@ class MyWidget(QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
-        
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.CustomizeWindowHint)
+        self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowMaximizeButtonHint)
 
         self.prev = QLabel(self)
         self.prev.resize(1000, 800)
@@ -70,7 +71,7 @@ class MyWidget(QtWidgets.QWidget):
         try:
             pixmap = QPixmap(os.path.join(path, Name[0]))
             self.label.setPixmap(pixmap)
-            self.label.move(25,25)
+            self.label.move(75,50)
             self.label.resize(850,850)
             self.label.setAlignment(QtCore.Qt.AlignCenter)
             self.label.show()
@@ -101,8 +102,8 @@ class MyWidget(QtWidgets.QWidget):
             self.widget.show()
             self.close()
         except:
-            print("Home screen error")
-
+            pass
+        
         
         
     @QtCore.Slot()
