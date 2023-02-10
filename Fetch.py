@@ -27,13 +27,12 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
             dispImg = numPhotos
 
         for i in range(dispImg):
-
             url = res['photos'][i]['img_src']
             imgUrl = url
             sol = res['photos'][i]['sol']
             date = res['photos'][i]['earth_date']
             roverName = res['photos'][i]['rover']['name']
-
+            
             print()
             print(f'Downloading Image from: \n{url}')
             print()

@@ -21,7 +21,7 @@ class ShareWindow(QtWidgets.QWidget):
 "background-color: #09011B;")
 
         self.centralwidget = QtWidgets.QWidget(self)
-                
+
         self.enter = QtWidgets.QPushButton(self)
         self.enter.setText("Enter")
         
