@@ -27,29 +27,34 @@ class MyWidget(QtWidgets.QWidget):
         self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowMaximizeButtonHint)
 
         self.prev = QLabel(self)
-        self.prev.resize(1000, 800)
-        pixmap = QPixmap(os.path.join(cdPath,'NASALogo.png'))
-        # self.prev.setScaledContents(True)
+        self.prev.resize(1000, 1000)
+        pixmap = QPixmap(os.path.join(cdPath,'1.jpg'))
+        self.prev.setScaledContents(True)
         self.prev.setAlignment(QtCore.Qt.AlignCenter)
         self.pixmap = pixmap.scaled(self.width(), self.height())
         self.prev.setPixmap(self.pixmap)
-        self.prev.setMinimumSize(1,1)
         
-        self.setStyleSheet("background-color: #080117;")
+        # self.prev.setMinimumSize(1,1)
+        
+        self.setStyleSheet("background-color: #000000;")
         self.setWindowTitle("NASA - Mars Rover Images")
         self.layout = QtWidgets.QHBoxLayout(self)
 
         self.help = QtWidgets.QPushButton("Help")
         self.layout.addWidget(self.help, alignment=QtCore.Qt.AlignBottom)
         self.help.clicked.connect(self.Help)
+        self.help.setStyleSheet("border : 1px solid #AD3E02; border-radius : 5px;")
 
         self.home = QtWidgets.QPushButton("Home")
         self.layout.addWidget(self.home, alignment=QtCore.Qt.AlignBottom)
         self.home.clicked.connect(self.homeScreen)
+        self.home.setStyleSheet("border : 1px solid #AD3E02; border-radius : 5px;")
 
         self.fetch = QtWidgets.QPushButton("Fetch - Display")
         self.layout.addWidget(self.fetch, alignment=QtCore.Qt.AlignBottom)
         self.fetch.clicked.connect(self.inputBox)
+        self.fetch.setStyleSheet("border : 1px solid #AD3E02; border-radius : 5px;")
+        
 
     @QtCore.Slot()
     def Help(self):
@@ -59,8 +64,7 @@ class MyWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def magic(self):
-        # self.movie.stop()
-        self.prev.close()
+        # self.prev.close()requests.exceptions.ConnectionError:
         self.fetch.setEnabled(True)
     
 
@@ -76,13 +80,17 @@ class MyWidget(QtWidgets.QWidget):
             self.label.move(75,50)
             self.label.resize(850,850)
             self.label.setAlignment(QtCore.Qt.AlignCenter)
+            self.label.setStyleSheet("border : 2px solid #DD4E00; border-radius : 4px;")
             self.label.show()
             self.num.setText(f"{imgNum+1}/{len(Name)}")
+            self.num.resize(50,10)
             self.setWindowTitle("Image(s)")
         except IndexError:
             #print("No Images found for given parameters.")
             self.prev.show()
             self.homeScreen()
+            self.next.close()
+            self.pre.close()
                 
                 
     
@@ -136,8 +144,8 @@ class MyWidget(QtWidgets.QWidget):
         self.sol.setText("sol")
         self.earthdate.setText("<yyyy-m-d>")
         self.layout.addWidget(self.sol, alignment=QtCore.Qt.AlignBottom)
-        self.sol.setStyleSheet("background-color: #060111")
-        self.earthdate.setStyleSheet("background-color: #060111")
+        self.sol.setStyleSheet("background-color: #191919")
+        self.earthdate.setStyleSheet("background-color: #191919")
         self.layout.addWidget(self.earthdate, alignment=QtCore.Qt.AlignBottom)
 
         self.rover = QComboBox(self)
@@ -164,9 +172,11 @@ class MyWidget(QtWidgets.QWidget):
         self.enter = QtWidgets.QPushButton("Enter")
         self.layout.addWidget(self.enter, alignment=QtCore.Qt.AlignBottom)
         self.enter.clicked.connect(self.parameter)
+        self.enter.setStyleSheet("border : 1px solid #DD4E00; border-radius : 4px;")
 
 
         self.fetch.setEnabled(False)
+        
 
 
     @QtCore.Slot()
@@ -175,6 +185,7 @@ class MyWidget(QtWidgets.QWidget):
         self.pre = QtWidgets.QPushButton("Previous")
         self.layout.addWidget(self.pre, alignment=QtCore.Qt.AlignBottom)
         self.pre.clicked.connect(self.prevImg)
+        self.pre.setStyleSheet("border : 1px solid #DD4E00; border-radius : 4px;")
 
         self.num = QLabel(self)
         self.layout.addWidget(self.num, alignment=QtCore.Qt.AlignBottom)
@@ -182,7 +193,8 @@ class MyWidget(QtWidgets.QWidget):
         self.next = QtWidgets.QPushButton("Next")
         self.layout.addWidget(self.next, alignment=QtCore.Qt.AlignBottom)
         self.next.clicked.connect(self.nextImg)
-        
+        self.next.setStyleSheet("border : 1px solid #DD4E00; border-radius : 4px;")
+
         sol = self.sol.text()
         earthdate = self.earthdate.text()
         rover = self.rover.currentText().lower()
@@ -236,6 +248,7 @@ class MyWidget(QtWidgets.QWidget):
         self.send = QtWidgets.QPushButton("Share")
         self.layout.addWidget(self.send, alignment=QtCore.Qt.AlignBottom)
         self.send.clicked.connect(self.send_mail)
+        self.send.setStyleSheet("border : 1px solid #DD4E00; border-radius : 4px;")
         self.magic()
 
     @QtCore.Slot()
@@ -299,7 +312,7 @@ class DemoWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Help")
-        self.setStyleSheet("background-color: #080117;")
+        self.setStyleSheet("background-color: #000000;")
         self.demo = QLabel(self)
         self.demLayout = QtWidgets.QHBoxLayout(self)
         self.demo.setText("""Click the 'Fetch-Display' button.

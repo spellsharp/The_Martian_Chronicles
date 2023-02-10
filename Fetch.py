@@ -60,8 +60,11 @@ def Image(nameRover='curiosity', solYear='1000', cameraName='fhaz', earthDate='2
         print(res)
 
     except KeyboardInterrupt:
-        print("Fetch Terminated...")
+        print("\nFetch Terminated...")
         pass
+
+    except requests.exceptions.ConnectionError:
+        print("Check your connection and try again...")
 
     return 0
 

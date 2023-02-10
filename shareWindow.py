@@ -18,14 +18,14 @@ class ShareWindow(QtWidgets.QWidget):
         
         self.resize(430, 488)
         self.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: #09011B;")
+"background-color: #0D0D0D;")
 
         self.centralwidget = QtWidgets.QWidget(self)
 
         self.enter = QtWidgets.QPushButton(self)
         self.enter.setText("Enter")
-        
-        self.enter.setGeometry(QtCore.QRect(160, 425, 89, 25))
+        self.enter.setStyleSheet("background-color: #191919; border : 2px solid #DD4E00; border-radius : 4px;")
+        self.enter.setGeometry(QtCore.QRect(200, 425, 89, 25))
 
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(20, 30, 361, 50))
@@ -37,21 +37,23 @@ class ShareWindow(QtWidgets.QWidget):
         self.emailLabel.setText("Email Id(s)")
         self.emailVert.addWidget(self.emailLabel)
         self.emailLine = QtWidgets.QLineEdit(self.widget)
-        self.emailLine.setStyleSheet("background-color: #080117;")
-        
+        self.emailLine.setStyleSheet("background-color: #191919; border : 2px solid #DD4E00; border-radius : 4px;")
+
         self.emailVert.addWidget(self.emailLine)
         self.widget1 = QtWidgets.QWidget(self.centralwidget)
         self.widget1.setGeometry(QtCore.QRect(20, 100, 361, 50))
+
         
         self.subjectVert = QtWidgets.QVBoxLayout(self.widget1)
         self.subjectVert.setContentsMargins(0, 0, 0, 0)
+        
         
         self.subjectL = QtWidgets.QLabel(self.widget1)
         self.subjectL.setText("Subject")
         
         self.subjectVert.addWidget(self.subjectL)
         self.subjectLine = QtWidgets.QLineEdit(self.widget1)
-        self.subjectLine.setStyleSheet("background-color: #080117;")
+        self.subjectLine.setStyleSheet("background-color: #191919; border : 2px solid #DD4E00; border-radius : 4px;")
         
         self.subjectVert.addWidget(self.subjectLine)
         self.widget2 = QtWidgets.QWidget(self.centralwidget)
@@ -65,7 +67,7 @@ class ShareWindow(QtWidgets.QWidget):
         
         self.bodyVert.addWidget(self.bodyLabel)
         self.bodyText = QtWidgets.QTextEdit(self.widget2)
-        self.bodyText.setStyleSheet("background-color: #080117;")
+        self.bodyText.setStyleSheet("background-color: #191919; border : 2px solid #DD4E00; border-radius : 4px;")
         
         self.bodyVert.addWidget(self.bodyText)
         
